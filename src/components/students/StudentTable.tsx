@@ -85,12 +85,18 @@ const STUDENTS = [
 
 interface StudentTableProps {
   programId: number;
+  limit?: number;
 }
 
-export const StudentTable: React.FC<StudentTableProps> = ({ programId }) => {
-  const filteredStudents = programId 
+export const StudentTable: React.FC<StudentTableProps> = ({ programId, limit }) => {
+  let filteredStudents = programId 
     ? STUDENTS.filter(student => student.program === programId)
     : STUDENTS;
+
+  // Apply limit if provided
+  if (limit) {
+    filteredStudents = filteredStudents.slice(0, limit);
+  }
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -168,7 +174,8 @@ export const StudentTable: React.FC<StudentTableProps> = ({ programId }) => {
         </Table>
       </div>
       
-      {filteredStudents.length > 0 && (
+      {/* Only show pagination when we're not limiting results and there are students */}
+      {!limit && filteredStudents.length > 0 && (
         <Pagination>
           <PaginationContent>
             <PaginationItem>

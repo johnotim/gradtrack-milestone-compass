@@ -8,6 +8,7 @@ import { MilestoneCalendar } from '@/components/dashboard/MilestoneCalendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { FileCheck, CalendarPlus, Plus, FileText } from 'lucide-react';
+import { StudentTable } from '@/components/students/StudentTable';
 
 const Index = () => {
   return (
@@ -57,6 +58,19 @@ const Index = () => {
             </CardContent>
           </Card>
         </div>
+        
+        {/* Student Table Section */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>Recent Students</CardTitle>
+            <Button variant="outline" size="sm" onClick={() => window.location.href = '/students'}>
+              View All Students
+            </Button>
+          </CardHeader>
+          <CardContent>
+            <StudentTable programId={0} limit={5} />
+          </CardContent>
+        </Card>
       </div>
     </DashboardLayout>
   );
