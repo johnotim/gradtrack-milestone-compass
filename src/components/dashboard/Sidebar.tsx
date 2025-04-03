@@ -9,11 +9,11 @@ import {
   Users, 
   Settings, 
   ChevronLeft, 
-  ChevronRight, 
-  Bell
+  ChevronRight 
 } from 'lucide-react';
 import { RoleSelector } from './RoleSelector';
 import { cn } from '@/lib/utils';
+import { NavLink } from 'react-router-dom';
 
 export const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,12 +23,12 @@ export const Sidebar = () => {
   };
 
   const menuItems = [
-    { title: 'Dashboard', icon: LayoutDashboard, href: '#' },
-    { title: 'Students', icon: GraduationCap, href: '#' },
-    { title: 'Milestones', icon: ClipboardList, href: '#' },
-    { title: 'Calendar', icon: Calendar, href: '#' },
-    { title: 'Documents', icon: FileText, href: '#' },
-    { title: 'Users', icon: Users, href: '#' },
+    { title: 'Dashboard', icon: LayoutDashboard, href: '/' },
+    { title: 'Students', icon: GraduationCap, href: '/students' },
+    { title: 'Milestones', icon: ClipboardList, href: '/milestones' },
+    { title: 'Calendar', icon: Calendar, href: '/calendar' },
+    { title: 'Documents', icon: FileText, href: '/documents' },
+    { title: 'Users', icon: Users, href: '/users' },
   ];
 
   return (
@@ -71,13 +71,18 @@ export const Sidebar = () => {
         <ul className="space-y-1 px-2">
           {menuItems.map((item) => (
             <li key={item.title}>
-              <a
-                href={item.href}
-                className="flex items-center gap-x-3 px-3 py-2.5 rounded-md hover:bg-white/10 transition-colors"
+              <NavLink
+                to={item.href}
+                className={({ isActive }) => cn(
+                  "flex items-center gap-x-3 px-3 py-2.5 rounded-md transition-colors",
+                  isActive 
+                    ? "bg-primary-teal text-white" 
+                    : "hover:bg-white/10"
+                )}
               >
                 <item.icon size={20} />
                 {!collapsed && <span>{item.title}</span>}
-              </a>
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -85,13 +90,18 @@ export const Sidebar = () => {
 
       {/* Footer */}
       <div className="p-4 border-t border-white/10">
-        <a
-          href="#"
-          className="flex items-center gap-x-3 px-3 py-2 rounded-md hover:bg-white/10 transition-colors"
+        <NavLink
+          to="/settings"
+          className={({ isActive }) => cn(
+            "flex items-center gap-x-3 px-3 py-2 rounded-md transition-colors",
+            isActive 
+              ? "bg-primary-teal text-white" 
+              : "hover:bg-white/10"
+          )}
         >
           <Settings size={20} />
           {!collapsed && <span>Settings</span>}
-        </a>
+        </NavLink>
       </div>
     </div>
   );
