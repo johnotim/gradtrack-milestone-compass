@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
@@ -8,7 +9,8 @@ import {
   Users, 
   Settings, 
   ChevronLeft, 
-  ChevronRight 
+  ChevronRight,
+  BookOpen
 } from 'lucide-react';
 import { RoleSelector } from './RoleSelector';
 import { cn } from '@/lib/utils';
@@ -24,6 +26,7 @@ export const Sidebar = () => {
   const menuItems = [
     { title: 'Dashboard', icon: LayoutDashboard, href: '/' },
     { title: 'Students', icon: GraduationCap, href: '/students' },
+    { title: 'Programs', icon: BookOpen, href: '/programs' },
     { title: 'Milestones', icon: ClipboardList, href: '/milestones' },
     { title: 'Calendar', icon: Calendar, href: '/calendar' },
     { title: 'Documents', icon: FileText, href: '/documents' },

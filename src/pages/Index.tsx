@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { StatsCards } from '@/components/dashboard/StatsCards';
@@ -7,7 +6,7 @@ import { ActivityFeed } from '@/components/dashboard/ActivityFeed';
 import { MilestoneCalendar } from '@/components/dashboard/MilestoneCalendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FileCheck, CalendarPlus, Plus, FileText } from 'lucide-react';
+import { FileCheck, CalendarPlus, Plus, FileText, BookOpen } from 'lucide-react';
 import { StudentTable } from '@/components/students/StudentTable';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -19,6 +18,7 @@ import {
   DialogTitle 
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
+import { AddProgramForm } from '@/components/programs/AddProgramForm';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ const Index = () => {
   // Dialog states
   const [newMeetingOpen, setNewMeetingOpen] = useState(false);
   const [newStudentOpen, setNewStudentOpen] = useState(false);
+  const [newProgramOpen, setNewProgramOpen] = useState(false);
   const [generateReportOpen, setGenerateReportOpen] = useState(false);
 
   // Handle quick actions
@@ -51,6 +52,10 @@ const Index = () => {
 
   const handleAddStudent = () => {
     setNewStudentOpen(true);
+  };
+
+  const handleAddProgram = () => {
+    setNewProgramOpen(true);
   };
 
   const handleGenerateReport = () => {
@@ -135,6 +140,13 @@ const Index = () => {
                 </Button>
                 <Button 
                   className="w-full bg-white/20 hover:bg-white/30 border border-white/30"
+                  onClick={handleAddProgram}
+                >
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  Add New Program
+                </Button>
+                <Button 
+                  className="w-full bg-white/20 hover:bg-white/30 border border-white/30"
                   onClick={handleGenerateReport}
                 >
                   <FileText className="mr-2 h-4 w-4" />
@@ -145,7 +157,6 @@ const Index = () => {
           </Card>
         </div>
         
-        {/* Student Table Section */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Recent Students</CardTitle>
@@ -163,7 +174,6 @@ const Index = () => {
         </Card>
       </div>
 
-      {/* Schedule New Meeting Dialog */}
       <Dialog open={newMeetingOpen} onOpenChange={setNewMeetingOpen}>
         <DialogContent>
           <DialogHeader>
@@ -206,7 +216,6 @@ const Index = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Add New Student Dialog */}
       <Dialog open={newStudentOpen} onOpenChange={setNewStudentOpen}>
         <DialogContent>
           <DialogHeader>
@@ -254,7 +263,26 @@ const Index = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Generate Progress Report Dialog */}
+      <Dialog open={newProgramOpen} onOpenChange={setNewProgramOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New Program</DialogTitle>
+            <DialogDescription>
+              Add a new academic program to the system.
+            </DialogDescription>
+          </DialogHeader>
+          <AddProgramForm 
+            onSuccess={() => {
+              setNewProgramOpen(false);
+              toast({
+                title: "Program added",
+                description: "The new program has been successfully added to the system.",
+              });
+            }} 
+          />
+        </DialogContent>
+      </Dialog>
+
       <Dialog open={generateReportOpen} onOpenChange={setGenerateReportOpen}>
         <DialogContent>
           <DialogHeader>

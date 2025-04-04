@@ -5,18 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { StudentTable } from '@/components/students/StudentTable';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Plus, GraduationCap } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { EnrollStudentForm } from '@/components/students/EnrollStudentForm';
 import { useToast } from '@/hooks/use-toast';
-
-// Mock data for programs
-const PROGRAMS = [
-  { id: 1, name: 'Doctor of Philosophy (Ph.D.)' },
-  { id: 2, name: 'Master of Science (M.Sc.)' },
-  { id: 3, name: 'Master of Business Administration (MBA)' },
-  { id: 4, name: 'Master of Arts (M.A.)' }
-];
+import { PROGRAMS } from '@/components/programs/ProgramsTable';
 
 const StudentsList = () => {
   const [selectedProgram, setSelectedProgram] = useState<string>(PROGRAMS[0].id.toString());
