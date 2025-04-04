@@ -46,8 +46,11 @@ export const AddProgramForm: React.FC<AddProgramFormProps> = ({ onSuccess }) => 
     
     // Simulate adding a program
     const newProgram = {
-      id: Math.max(...PROGRAMS.map(p => p.id)) + 1,
-      ...values
+      id: Math.max(...PROGRAMS.map(p => p.id), 0) + 1,
+      name: values.name,
+      code: values.code,
+      faculty: values.faculty,
+      duration: values.duration
     };
     
     PROGRAMS.push(newProgram);
