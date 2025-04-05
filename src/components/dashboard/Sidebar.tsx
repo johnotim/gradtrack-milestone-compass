@@ -14,7 +14,8 @@ import {
   UserCheck,
   MessageSquare,
   Award,
-  ChevronDown
+  ChevronDown,
+  Folder
 } from 'lucide-react';
 import { RoleSelector } from './RoleSelector';
 import { cn } from '@/lib/utils';
@@ -72,8 +73,17 @@ export const Sidebar = () => {
       ]
     },
     { title: 'Calendar', icon: Calendar, href: '/calendar' },
-    { title: 'Documents', icon: FileText, href: '/documents' },
-    { title: 'Users', icon: Users, href: '/users' },
+    { title: 'Resources', icon: Folder, href: '/resources' },
+    { 
+      title: 'Settings', 
+      icon: Settings, 
+      href: '/settings',
+      subMenu: [
+        { title: 'Users', href: '/users' },
+        { title: 'Account', href: '/settings/account' },
+        { title: 'Preferences', href: '/settings/preferences' }
+      ]
+    },
   ];
 
   return (

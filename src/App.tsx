@@ -43,9 +43,13 @@ const App = () => (
           
           {/* Other existing routes */}
           <Route path="/calendar" element={<NotFound />} />
-          <Route path="/documents" element={<NotFound />} />
-          <Route path="/users" element={<NotFound />} />
+          <Route path="/resources" element={<NotFound />} />
+          
+          {/* Settings routes */}
           <Route path="/settings" element={<NotFound />} />
+          <Route path="/settings/account" element={<NotFound />} />
+          <Route path="/settings/preferences" element={<NotFound />} />
+          <Route path="/users" element={<NotFound />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
