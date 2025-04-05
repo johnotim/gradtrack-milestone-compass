@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
@@ -79,9 +78,7 @@ export const Sidebar = () => {
       icon: Settings, 
       href: '/settings',
       subMenu: [
-        { title: 'Users', href: '/users' },
-        { title: 'Account', href: '/settings/account' },
-        { title: 'Preferences', href: '/settings/preferences' }
+        { title: 'Users', href: '/users' }
       ]
     },
   ];

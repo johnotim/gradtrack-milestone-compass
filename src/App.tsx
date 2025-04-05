@@ -47,8 +47,6 @@ const App = () => (
           
           {/* Settings routes */}
           <Route path="/settings" element={<NotFound />} />
-          <Route path="/settings/account" element={<NotFound />} />
-          <Route path="/settings/preferences" element={<NotFound />} />
           <Route path="/users" element={<NotFound />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
