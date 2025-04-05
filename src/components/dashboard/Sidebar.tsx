@@ -6,9 +6,6 @@ import {
   Calendar, 
   FileText, 
   Users, 
-  Settings, 
-  ChevronLeft, 
-  ChevronRight,
   BookOpen,
   UserCheck,
   MessageSquare,
@@ -73,7 +70,6 @@ export const Sidebar = () => {
     },
     { title: 'Calendar', icon: Calendar, href: '/calendar' },
     { title: 'Resources', icon: Folder, href: '/resources' },
-    { title: 'Settings', icon: Settings, href: '/settings' },
   ];
 
   return (
