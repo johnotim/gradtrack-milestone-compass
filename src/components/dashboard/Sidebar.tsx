@@ -73,14 +73,7 @@ export const Sidebar = () => {
     },
     { title: 'Calendar', icon: Calendar, href: '/calendar' },
     { title: 'Resources', icon: Folder, href: '/resources' },
-    { 
-      title: 'Settings', 
-      icon: Settings, 
-      href: '/settings',
-      subMenu: [
-        { title: 'Users', href: '/users' }
-      ]
-    },
+    { title: 'Settings', icon: Settings, href: '/settings' },
   ];
 
   return (
@@ -88,7 +81,6 @@ export const Sidebar = () => {
       "flex flex-col bg-primary-navy text-white transition-all duration-300",
       collapsed ? "w-16" : "w-64"
     )}>
-      {/* Logo */}
       <div className="flex items-center justify-between p-4 h-16 border-b border-white/10">
         {!collapsed && (
           <div className="flex items-center">
@@ -105,7 +97,6 @@ export const Sidebar = () => {
         </button>
       </div>
 
-      {/* Role Selector */}
       <div className="p-3">
         {!collapsed ? (
           <RoleSelector />
@@ -118,12 +109,10 @@ export const Sidebar = () => {
         )}
       </div>
 
-      {/* Nav Items */}
       <nav className="flex-1 pt-2 overflow-y-auto">
         <ul className="space-y-1 px-2">
           {menuItems.map((item) => (
             <li key={item.title} className="flex flex-col">
-              {/* Main menu item */}
               <div className="flex items-center">
                 <NavLink
                   to={item.href}
@@ -154,7 +143,6 @@ export const Sidebar = () => {
                 )}
               </div>
               
-              {/* Sub-menu items */}
               {!collapsed && item.subMenu && expandedItems.includes(item.title) && (
                 <ul className="ml-8 mt-1 space-y-1 border-l-2 border-white/10 pl-2">
                   {item.subMenu.map(subItem => (
@@ -179,7 +167,6 @@ export const Sidebar = () => {
         </ul>
       </nav>
 
-      {/* Footer */}
       <div className="p-4 border-t border-white/10">
         <NavLink
           to="/settings"
