@@ -10,7 +10,11 @@ import {
   Settings, 
   ChevronLeft, 
   ChevronRight,
-  BookOpen
+  BookOpen,
+  UserCheck,
+  MessageSquare,
+  Award,
+  ChevronDown
 } from 'lucide-react';
 import { RoleSelector } from './RoleSelector';
 import { cn } from '@/lib/utils';
@@ -18,9 +22,18 @@ import { NavLink } from 'react-router-dom';
 
 export const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
+  };
+
+  const toggleSubMenu = (title: string) => {
+    setExpandedItems(prev => 
+      prev.includes(title) 
+        ? prev.filter(item => item !== title) 
+        : [...prev, title]
+    );
   };
 
   const menuItems = [
@@ -28,6 +41,36 @@ export const Sidebar = () => {
     { title: 'Students', icon: GraduationCap, href: '/students' },
     { title: 'Programs', icon: BookOpen, href: '/programs' },
     { title: 'Milestones', icon: ClipboardList, href: '/milestones' },
+    { 
+      title: 'Supervisors', 
+      icon: UserCheck, 
+      href: '/supervisors',
+      subMenu: [
+        { title: 'Allocate to Students', href: '/supervisors/allocate' },
+        { title: 'Track Performance', href: '/supervisors/performance' },
+        { title: 'Availability Schedule', href: '/supervisors/schedule' }
+      ]
+    },
+    { 
+      title: 'Complaints', 
+      icon: MessageSquare, 
+      href: '/complaints',
+      subMenu: [
+        { title: 'New Complaints', href: '/complaints/new' },
+        { title: 'Under Review', href: '/complaints/review' },
+        { title: 'Resolved Issues', href: '/complaints/resolved' }
+      ]
+    },
+    { 
+      title: 'Sponsorships', 
+      icon: Award, 
+      href: '/sponsorships',
+      subMenu: [
+        { title: 'Available Grants', href: '/sponsorships/grants' },
+        { title: 'Corporate Partners', href: '/sponsorships/partners' },
+        { title: 'Student Applications', href: '/sponsorships/applications' }
+      ]
+    },
     { title: 'Calendar', icon: Calendar, href: '/calendar' },
     { title: 'Documents', icon: FileText, href: '/documents' },
     { title: 'Users', icon: Users, href: '/users' },
@@ -69,22 +112,61 @@ export const Sidebar = () => {
       </div>
 
       {/* Nav Items */}
-      <nav className="flex-1 pt-2">
+      <nav className="flex-1 pt-2 overflow-y-auto">
         <ul className="space-y-1 px-2">
           {menuItems.map((item) => (
-            <li key={item.title}>
-              <NavLink
-                to={item.href}
-                className={({ isActive }) => cn(
-                  "flex items-center gap-x-3 px-3 py-2.5 rounded-md transition-colors",
-                  isActive 
-                    ? "bg-primary-teal text-white" 
-                    : "hover:bg-white/10"
+            <li key={item.title} className="flex flex-col">
+              {/* Main menu item */}
+              <div className="flex items-center">
+                <NavLink
+                  to={item.href}
+                  className={({ isActive }) => cn(
+                    "flex flex-1 items-center gap-x-3 px-3 py-2.5 rounded-md transition-colors",
+                    isActive && !item.subMenu 
+                      ? "bg-primary-teal text-white" 
+                      : "hover:bg-white/10"
+                  )}
+                >
+                  <item.icon size={20} />
+                  {!collapsed && <span className="flex-1">{item.title}</span>}
+                </NavLink>
+                
+                {!collapsed && item.subMenu && (
+                  <button 
+                    onClick={() => toggleSubMenu(item.title)}
+                    className="pr-2 py-2.5 hover:text-primary-gold"
+                  >
+                    <ChevronDown 
+                      size={16} 
+                      className={cn(
+                        "transition-transform duration-200",
+                        expandedItems.includes(item.title) && "transform rotate-180"
+                      )} 
+                    />
+                  </button>
                 )}
-              >
-                <item.icon size={20} />
-                {!collapsed && <span>{item.title}</span>}
-              </NavLink>
+              </div>
+              
+              {/* Sub-menu items */}
+              {!collapsed && item.subMenu && expandedItems.includes(item.title) && (
+                <ul className="ml-8 mt-1 space-y-1 border-l-2 border-white/10 pl-2">
+                  {item.subMenu.map(subItem => (
+                    <li key={subItem.title}>
+                      <NavLink
+                        to={subItem.href}
+                        className={({ isActive }) => cn(
+                          "flex items-center py-1.5 px-2 text-sm rounded-md transition-colors",
+                          isActive 
+                            ? "bg-primary-teal/50 text-white" 
+                            : "text-white/70 hover:text-white hover:bg-white/10"
+                        )}
+                      >
+                        <span>{subItem.title}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>
