@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
@@ -14,7 +15,9 @@ import {
   Award,
   ChevronDown,
   Folder,
-  Settings
+  Settings,
+  CalendarCheck,
+  CalendarClock
 } from 'lucide-react';
 import { RoleSelector } from './RoleSelector';
 import { cn } from '@/lib/utils';
@@ -71,7 +74,12 @@ export const Sidebar = () => {
         { title: 'Student Applications', href: '/sponsorships/applications' }
       ]
     },
-    { title: 'Calendar', icon: Calendar, href: '/calendar' },
+    { 
+      title: 'Academic Calendar', 
+      icon: CalendarCheck, 
+      href: '/calendar',
+      highlight: true
+    },
     { title: 'Resources', icon: Folder, href: '/resources' },
   ];
 
@@ -119,10 +127,12 @@ export const Sidebar = () => {
                     "flex flex-1 items-center gap-x-3 px-3 py-2.5 rounded-md transition-colors",
                     isActive && !item.subMenu 
                       ? "bg-primary-teal text-white" 
+                      : item.highlight 
+                      ? "hover:bg-white/10 text-primary-gold font-semibold" 
                       : "hover:bg-white/10"
                   )}
                 >
-                  <item.icon size={20} />
+                  <item.icon size={20} className={item.highlight ? "text-primary-gold" : ""} />
                   {!collapsed && <span className="flex-1">{item.title}</span>}
                 </NavLink>
                 

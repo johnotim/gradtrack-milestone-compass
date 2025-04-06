@@ -12,6 +12,7 @@ import SupervisorsList from "./pages/SupervisorsList";
 import ComplaintsList from "./pages/ComplaintsList";
 import ResourcesList from "./pages/ResourcesList";
 import SponsorshipsList from "./pages/SponsorshipsList";
+import CalendarPage from "./pages/CalendarPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,8 +50,8 @@ const App = () => (
           <Route path="/sponsorships/partners" element={<NotFound />} />
           <Route path="/sponsorships/applications" element={<NotFound />} />
           
-          {/* Other existing routes */}
-          <Route path="/calendar" element={<NotFound />} />
+          {/* Calendar route */}
+          <Route path="/calendar" element={<CalendarPage />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
