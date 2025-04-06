@@ -11,6 +11,7 @@ import ProgramsList from "./pages/ProgramsList";
 import SupervisorsList from "./pages/SupervisorsList";
 import ComplaintsList from "./pages/ComplaintsList";
 import ResourcesList from "./pages/ResourcesList";
+import SponsorshipsList from "./pages/SponsorshipsList";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,7 +44,7 @@ const App = () => (
           <Route path="/resources" element={<ResourcesList />} />
           
           {/* Sponsorship routes */}
-          <Route path="/sponsorships" element={<NotFound />} />
+          <Route path="/sponsorships" element={<SponsorshipsList />} />
           <Route path="/sponsorships/grants" element={<NotFound />} />
           <Route path="/sponsorships/partners" element={<NotFound />} />
           <Route path="/sponsorships/applications" element={<NotFound />} />
