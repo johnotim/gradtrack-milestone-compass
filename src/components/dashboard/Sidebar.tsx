@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
@@ -7,14 +6,15 @@ import {
   Calendar, 
   FileText, 
   Users, 
-  ChevronLeft,  // Re-added
-  ChevronRight, // Re-added
+  ChevronLeft,
+  ChevronRight,
   BookOpen,
   UserCheck,
   MessageSquare,
   Award,
   ChevronDown,
-  Folder
+  Folder,
+  Settings
 } from 'lucide-react';
 import { RoleSelector } from './RoleSelector';
 import { cn } from '@/lib/utils';
@@ -183,4 +183,3 @@ export const Sidebar = () => {
     </div>
   );
 };
-
