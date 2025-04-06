@@ -3,13 +3,14 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
-import { Info } from 'lucide-react';
+import { Info, CalendarCheck } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from '@/lib/utils';
 
 export const MilestoneCalendar = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -23,31 +24,37 @@ export const MilestoneCalendar = () => {
       date: new Date(currentYear, 3, 15), // Apr 15
       type: 'submission',
       title: 'Thesis Draft Submission',
+      description: 'Submit your initial thesis draft for review',
     },
     {
       date: new Date(currentYear, 4, 7), // May 7
       type: 'review',
       title: 'Supervisor Review Session',
+      description: 'Mid-semester progress review with supervisor',
     },
     {
       date: new Date(currentYear, 5, 21), // Jun 21
       type: 'end-of-term',
       title: 'End of Spring Semester',
+      description: 'Semester concludes, final submissions due',
     },
     {
       date: new Date(currentYear, 8, 5), // Sep 5
       type: 'submission',
       title: 'Research Proposal Deadline',
+      description: 'Submit comprehensive research proposal',
     },
     {
       date: new Date(currentYear, 9, 18), // Oct 18
       type: 'review',
       title: 'Mid-term Progress Review',
+      description: 'Comprehensive review of research progress',
     },
     {
       date: new Date(currentYear, 11, 15), // Dec 15
       type: 'end-of-term',
       title: 'End of Fall Semester',
+      description: 'Semester concludes, final project submissions',
     },
   ];
   
@@ -70,11 +77,11 @@ export const MilestoneCalendar = () => {
     if (event) {
       switch(event.type) {
         case 'submission':
-          return "bg-amber-500 text-white hover:bg-amber-600 rounded-full";
+          return "bg-amber-500 text-white hover:bg-amber-600 rounded-full border-2 border-white shadow-md";
         case 'review':
-          return "bg-blue-500 text-white hover:bg-blue-600 rounded-full";
+          return "bg-blue-500 text-white hover:bg-blue-600 rounded-full border-2 border-white shadow-md";
         case 'end-of-term':
-          return "bg-purple-500 text-white hover:bg-purple-600 rounded-full";
+          return "bg-purple-500 text-white hover:bg-purple-600 rounded-full border-2 border-white shadow-md";
         default:
           return "bg-primary-gold text-white hover:bg-primary-gold/90 rounded-full";
       }
@@ -113,17 +120,38 @@ export const MilestoneCalendar = () => {
           components={{
             Day: ({ date, ...props }) => {
               const className = dayClassName(date);
-              return <div className={className} {...props} />;
+              const event = getEventForDate(date);
+              
+              return (
+                <div 
+                  className={cn(
+                    "relative", 
+                    className, 
+                    event ? "cursor-pointer" : ""
+                  )} 
+                  {...props}
+                >
+                  {event && (
+                    <div className="absolute top-0 right-0 m-0.5">
+                      <CalendarCheck className="h-3 w-3 text-white" />
+                    </div>
+                  )}
+                </div>
+              );
             },
           }}
         />
         
         {selectedDateEvent && (
-          <div className="mt-3 p-3 bg-muted rounded-md">
-            <p className="font-medium">{selectedDateEvent.title}</p>
-            <p className="text-sm text-muted-foreground">
-              {format(selectedDateEvent.date, 'MMMM d, yyyy')}
-            </p>
+          <div className="mt-3 p-3 bg-muted rounded-md flex items-start space-x-3">
+            <CalendarCheck className="h-6 w-6 text-primary-teal mt-1" />
+            <div>
+              <p className="font-medium text-lg">{selectedDateEvent.title}</p>
+              <p className="text-sm text-muted-foreground">
+                {format(selectedDateEvent.date, 'MMMM d, yyyy')}
+              </p>
+              <p className="text-sm mt-1">{selectedDateEvent.description}</p>
+            </div>
           </div>
         )}
         
