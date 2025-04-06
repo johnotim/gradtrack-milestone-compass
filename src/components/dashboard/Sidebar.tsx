@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
@@ -6,6 +7,8 @@ import {
   Calendar, 
   FileText, 
   Users, 
+  ChevronLeft,  // Re-added
+  ChevronRight, // Re-added
   BookOpen,
   UserCheck,
   MessageSquare,
@@ -180,3 +183,4 @@ export const Sidebar = () => {
     </div>
   );
 };
+
