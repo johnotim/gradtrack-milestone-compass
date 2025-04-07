@@ -122,7 +122,13 @@ export const Sidebar = () => {
               <div className="flex items-center">
                 <NavLink
                   to={item.href}
-                  onClick={() => item.subMenu && toggleSubMenu(item.title)}
+                  onClick={() => {
+                    // If the item has a submenu, toggle its visibility
+                    // If no submenu, navigate to the link as normal
+                    if (item.subMenu) {
+                      toggleSubMenu(item.title);
+                    }
+                  }}
                   className={({ isActive }) => cn(
                     "flex flex-1 items-center gap-x-3 px-3 py-2.5 rounded-md transition-colors",
                     isActive && !item.subMenu 
