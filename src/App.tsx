@@ -17,50 +17,53 @@ import SponsorshipsList from "./pages/SponsorshipsList";
 import CalendarPage from "./pages/CalendarPage";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/students" element={<StudentsList />} />
-          <Route path="/milestones" element={<MilestonesList />} />
-          <Route path="/programs" element={<ProgramsList />} />
-          
-          {/* Supervisor routes */}
-          <Route path="/supervisors" element={<SupervisorsList />} />
-          <Route path="/supervisors/allocate" element={<SupervisorAllocatePage />} />
-          <Route path="/supervisors/performance" element={<SupervisorPerformancePage />} />
-          <Route path="/supervisors/schedule" element={<NotFound />} />
-          
-          {/* Complaint routes */}
-          <Route path="/complaints" element={<ComplaintsList />} />
-          <Route path="/complaints/new" element={<NotFound />} />
-          <Route path="/complaints/review" element={<NotFound />} />
-          <Route path="/complaints/resolved" element={<NotFound />} />
-          
-          {/* Resources route */}
-          <Route path="/resources" element={<ResourcesList />} />
-          
-          {/* Sponsorship routes */}
-          <Route path="/sponsorships" element={<SponsorshipsList />} />
-          <Route path="/sponsorships/grants" element={<NotFound />} />
-          <Route path="/sponsorships/partners" element={<NotFound />} />
-          <Route path="/sponsorships/applications" element={<NotFound />} />
-          
-          {/* Calendar route */}
-          <Route path="/calendar" element={<CalendarPage />} />
-          
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  // Create a new QueryClient instance within the component
+  const queryClient = new QueryClient();
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/students" element={<StudentsList />} />
+            <Route path="/milestones" element={<MilestonesList />} />
+            <Route path="/programs" element={<ProgramsList />} />
+            
+            {/* Supervisor routes */}
+            <Route path="/supervisors" element={<SupervisorsList />} />
+            <Route path="/supervisors/allocate" element={<SupervisorAllocatePage />} />
+            <Route path="/supervisors/performance" element={<SupervisorPerformancePage />} />
+            <Route path="/supervisors/schedule" element={<NotFound />} />
+            
+            {/* Complaint routes */}
+            <Route path="/complaints" element={<ComplaintsList />} />
+            <Route path="/complaints/new" element={<NotFound />} />
+            <Route path="/complaints/review" element={<NotFound />} />
+            <Route path="/complaints/resolved" element={<NotFound />} />
+            
+            {/* Resources route */}
+            <Route path="/resources" element={<ResourcesList />} />
+            
+            {/* Sponsorship routes */}
+            <Route path="/sponsorships" element={<SponsorshipsList />} />
+            <Route path="/sponsorships/grants" element={<NotFound />} />
+            <Route path="/sponsorships/partners" element={<NotFound />} />
+            <Route path="/sponsorships/applications" element={<NotFound />} />
+            
+            {/* Calendar route */}
+            <Route path="/calendar" element={<CalendarPage />} />
+            
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
