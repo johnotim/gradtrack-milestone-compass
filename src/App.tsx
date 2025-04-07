@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import StudentsList from "./pages/StudentsList";
 import MilestonesList from "./pages/MilestonesList";
+import MilestoneActivitiesPage from "./pages/MilestoneActivitiesPage";
 import ProgramsList from "./pages/ProgramsList";
 import SupervisorsList from "./pages/SupervisorsList";
 import SupervisorAllocatePage from "./pages/SupervisorAllocatePage";
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/students" element={<StudentsList />} />
             <Route path="/milestones" element={<MilestonesList />} />
+            <Route path="/milestones/:milestoneId/activities" element={<MilestoneActivitiesPage />} />
             <Route path="/programs" element={<ProgramsList />} />
             
             {/* Supervisor routes */}

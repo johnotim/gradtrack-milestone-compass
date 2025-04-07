@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button';
 import { MoreHorizontal, FileText, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 // Sample milestone data (you would typically fetch this from an API)
 const initialMilestones = [
@@ -78,6 +79,7 @@ const initialMilestones = [
 export const MilestoneTable = () => {
   const [milestones, setMilestones] = useState(initialMilestones);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -121,6 +123,13 @@ export const MilestoneTable = () => {
     });
   };
 
+  // Navigate to the milestone activities page
+  const viewMilestoneActivities = (milestoneId: number, milestoneTitle: string) => {
+    navigate(`/milestones/${milestoneId}/activities`, { 
+      state: { milestoneTitle } 
+    });
+  };
+
   return (
     <div className="rounded-md border">
       <Table>
@@ -156,37 +165,12 @@ export const MilestoneTable = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                          <FileText className="mr-2 h-4 w-4" />
-                          View Details
-                        </DropdownMenuItem>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>{milestone.title}</DialogTitle>
-                        </DialogHeader>
-                        <div className="space-y-4 mt-2">
-                          <div>
-                            <h4 className="text-sm font-medium">Description</h4>
-                            <p className="text-sm text-muted-foreground">{milestone.description}</p>
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-medium">Due Date</h4>
-                            <p className="text-sm text-muted-foreground">{formatDate(milestone.dueDate)}</p>
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-medium">Assignee</h4>
-                            <p className="text-sm text-muted-foreground">{milestone.assignee}</p>
-                          </div>
-                          <div>
-                            <h4 className="text-sm font-medium">Status</h4>
-                            <div className="mt-1">{getStatusBadge(milestone.status)}</div>
-                          </div>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                    <DropdownMenuItem 
+                      onClick={() => viewMilestoneActivities(milestone.id, milestone.title)}
+                    >
+                      <FileText className="mr-2 h-4 w-4" />
+                      View Activities
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuLabel>Change Status</DropdownMenuLabel>
                     <DropdownMenuItem onClick={() => handleStatusChange(milestone.id, 'upcoming')}>
