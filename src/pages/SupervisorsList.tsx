@@ -4,9 +4,24 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { SupervisorsTable } from "@/components/supervisors/SupervisorsTable";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
+} from "@/components/ui/dialog";
+import { AddSupervisorForm } from '@/components/supervisors/AddSupervisorForm';
 
 export default function SupervisorsList() {
   const [isAddingNew, setIsAddingNew] = useState(false);
+
+  // Mock function to handle adding a new supervisor
+  const handleAddSupervisor = (values: any) => {
+    console.log("Adding new supervisor:", values);
+    // In a real application, this would add the supervisor to the database
+    setIsAddingNew(false);
+  };
 
   return (
     <DashboardLayout>
@@ -25,6 +40,21 @@ export default function SupervisorsList() {
         </div>
         
         <SupervisorsTable />
+
+        <Dialog open={isAddingNew} onOpenChange={setIsAddingNew}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Add New Supervisor</DialogTitle>
+              <DialogDescription>
+                Fill in the details to add a new supervisor to the system.
+              </DialogDescription>
+            </DialogHeader>
+            <AddSupervisorForm 
+              onSubmit={handleAddSupervisor}
+              onCancel={() => setIsAddingNew(false)}
+            />
+          </DialogContent>
+        </Dialog>
       </div>
     </DashboardLayout>
   );

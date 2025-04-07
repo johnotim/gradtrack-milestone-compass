@@ -9,6 +9,8 @@ import StudentsList from "./pages/StudentsList";
 import MilestonesList from "./pages/MilestonesList";
 import ProgramsList from "./pages/ProgramsList";
 import SupervisorsList from "./pages/SupervisorsList";
+import SupervisorAllocatePage from "./pages/SupervisorAllocatePage";
+import SupervisorPerformancePage from "./pages/SupervisorPerformancePage";
 import ComplaintsList from "./pages/ComplaintsList";
 import ResourcesList from "./pages/ResourcesList";
 import SponsorshipsList from "./pages/SponsorshipsList";
@@ -31,8 +33,8 @@ const App = () => (
           
           {/* Supervisor routes */}
           <Route path="/supervisors" element={<SupervisorsList />} />
-          <Route path="/supervisors/allocate" element={<NotFound />} />
-          <Route path="/supervisors/performance" element={<NotFound />} />
+          <Route path="/supervisors/allocate" element={<SupervisorAllocatePage />} />
+          <Route path="/supervisors/performance" element={<SupervisorPerformancePage />} />
           <Route path="/supervisors/schedule" element={<NotFound />} />
           
           {/* Complaint routes */}

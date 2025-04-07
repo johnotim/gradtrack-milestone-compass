@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { 
   Table, 
   TableBody, 
@@ -33,6 +34,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 // Mock data for the supervisors
 const supervisors = [
@@ -80,7 +82,22 @@ const supervisors = [
 
 export function SupervisorsTable() {
   const [selectedSupervisor, setSelectedSupervisor] = useState<number | null>(null);
+  const navigate = useNavigate();
   
+  const handleAssignToStudent = (supervisorId: number) => {
+    navigate(`/supervisors/allocate?supervisor=${supervisorId}`);
+  };
+
+  const handleReviewPerformance = (supervisorId: number) => {
+    navigate(`/supervisors/performance?supervisor=${supervisorId}`);
+  };
+
+  const handleDeleteSupervisor = (supervisorId: number) => {
+    console.log("Deleting supervisor:", supervisorId);
+    // In a real app, this would delete the supervisor from the database
+    toast.success("Supervisor deleted successfully");
+  };
+
   return (
     <div className="rounded-md border">
       <Table>
@@ -119,17 +136,17 @@ export function SupervisorsTable() {
                   <DropdownMenuContent align="end" className="bg-white">
                     <DropdownMenuItem 
                       className="cursor-pointer flex items-center gap-2"
-                      onClick={() => console.log("Assign to student", supervisor.id)}
+                      onClick={() => handleAssignToStudent(supervisor.id)}
                     >
                       <UserPlus className="h-4 w-4" />
                       <span>Assign to Student</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem 
                       className="cursor-pointer flex items-center gap-2"
-                      onClick={() => console.log("Review", supervisor.id)}
+                      onClick={() => handleReviewPerformance(supervisor.id)}
                     >
                       <ClipboardList className="h-4 w-4" />
-                      <span>Review</span>
+                      <span>Review Performance</span>
                     </DropdownMenuItem>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
@@ -152,7 +169,7 @@ export function SupervisorsTable() {
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
                           <AlertDialogAction 
-                            onClick={() => console.log("Delete confirmed", supervisor.id)}
+                            onClick={() => handleDeleteSupervisor(supervisor.id)}
                             className="bg-destructive text-destructive-foreground"
                           >
                             Delete
